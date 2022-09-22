@@ -16,6 +16,8 @@ const middlewareJson = (options, { strapi }) => {
   : Math.min(Math.max(0, options.maxAge), 31556926000);
   const cacheControl = `public, max-age=${maxAge / 1000 | 0}`;
 
+let template = require('fs').readFileSync(__dirname + '/../template.html').toString();
+
  return async (/** @type {ReturnType<import('@strapi/strapi').Application.createContext>} */ctx, next) => {
     const start = Date.now();
     const o2 = options.replaceAllHtmlRequests && ctx.req.headers.accept.includes('text/html');
@@ -25,10 +27,12 @@ const middlewareJson = (options, { strapi }) => {
       ctx.res.setHeader('content-type', 'text/html');
       // ctx.set('content-type', ctx.type);
       await next();
-      ctx.body = `test=${ctx.body}`;
-      ctx.res.setHeader('content-type', 'text/html');
+      // TODO only if valid json
+      ctx.body = template.replace('{}', JSON.stringify(ctx.body, null, 2));
+      // ctx.res.setHeader('content-type', 'text/html');
       ctx.set('Content-Type', 'text/html');
-      ctx.response.header['content-type'] = 'text/html';
+      ctx.set('Content-Security-Policy', ' ');
+      // ctx.response.header['content-type'] = 'text/html';
       return;
     }
     await next();

@@ -1,0 +1,47 @@
+<title>API</title>
+<meta charset="utf-8"/>
+<meta http-equiv="Content-Security-Policy" content="">
+<link rel="stylesheet" href="//codemirror.net/5/lib/codemirror.css">
+<link rel="stylesheet" href="//codemirror.net/5/addon/fold/foldgutter.css">
+<script src="//codemirror.net/5/lib/codemirror.js"></script>
+<script src="//codemirror.net/5/addon/fold/foldgutter.js"></script>
+<script src="//codemirror.net/5/addon/fold/brace-fold.js"></script>
+<script src="//codemirror.net/5/addon/fold/foldcode.js"></script>
+<script src="//codemirror.net/5/mode/javascript/javascript.js"></script>
+<script src="//codemirror.net/5/addon/fold/indent-fold.js"></script>
+<script src="//codemirror.net/5/addon/fold/comment-fold.js"></script>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  .fullscreen {
+    display: flex;
+    min-height: 100vh;
+    min-width: 100vh;
+  }
+  .fullscreen > * {
+    min-width: 100%;
+    min-height: 100%;
+  }
+</style>
+<body>
+  <div class="fullscreen">
+    <textarea id="a1">{}</textarea>
+  </div>
+</body>
+<script>
+  // inspired by https://github.com/tulios/json-viewer/blob/0.18.1/extension/src/json-viewer/highlighter.js
+const myTextArea = document.querySelector('#a1')
+const myCodeMirror = CodeMirror(function(elt) {
+  myTextArea.parentNode.replaceChild(elt, myTextArea);
+}, {
+  value: JSON.stringify(JSON.parse(myTextArea.value), null, 2),
+  lineNumbers: true,
+  // mode:  "javascript",
+  mode: {name: "javascript", json: true},
+  foldGutter: true,
+  gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+});
+</script>
