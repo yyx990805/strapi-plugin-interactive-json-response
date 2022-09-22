@@ -1,0 +1,19 @@
+{
+  "name": "strapi-plugin-interactive-json-response",
+  "version": "0.0.0",
+  "description": "Adds interactive json explorer to text/html responses.",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:yyx990805/strapi-plugin-interactive-json-response.git"
+  },
+  "strapi": {
+    "name": "Interactive JSON (API plugin)",
+    "icon": "plug",
+    "description": "Adds interactive json explorer to text/html responses."
+  },
+  "dependencies": {},
+  "author": {
+    "name": "YY"
+  },
+  "license": "MIT"
+}
